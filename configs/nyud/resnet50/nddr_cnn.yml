@@ -1,0 +1,51 @@
+# Setup
+setup: multi_task
+
+# Database
+train_db_name: NYUD
+val_db_name: NYUD 
+trBatch: 8
+valBatch: 8
+nworkers: 4
+
+# Optimizer and scheduler
+epochs: 50
+optimizer: sgd
+optimizer_kwargs:
+   lr: 0.001
+   weight_decay: 0.0001
+   momentum: 0.9
+   nesterov: False
+scheduler: poly
+
+# Model
+model: nddr_cnn 
+model_kwargs:
+   nddr_cnn_kwargs: 
+      alpha: 0.9
+      beta: 0.1
+      all_stages: ['conv', 'layer1_without_conv', 'layer2', 'layer3', 'layer4']
+      nddr_stages: ['conv', 'layer1_without_conv', 'layer2', 'layer3', 'layer4']
+      channels:
+         conv: 64
+         layer1_without_conv: 256
+         layer2: 512
+         layer3: 1024
+         layer4: 2048
+backbone: resnet50
+backbone_kwargs:
+   pretrained: True
+   dilated: True
+head: deeplab
+
+# Tasks
+task_dictionary:
+   include_semseg: True
+   include_depth: True
+
+# Loss kwargs
+loss_kwargs:
+   loss_scheme: baseline
+   loss_weights:
+       semseg: 1.0
+       depth: 1.0

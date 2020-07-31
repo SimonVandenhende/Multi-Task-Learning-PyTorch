@@ -1,0 +1,29 @@
+# Setup
+setup: single_task
+
+# Database
+train_db_name: NYUD
+val_db_name: NYUD 
+trBatch: 8
+valBatch: 8
+nworkers: 4
+
+# Optimizer and scheduler
+epochs: 100
+optimizer: adam
+optimizer_kwargs:
+   lr: 0.0001
+   weight_decay: 0.0001
+scheduler: poly
+
+# Model
+model: baseline
+backbone: hrnet_w18
+backbone_kwargs:
+   pretrained: True
+   dilated: False
+head: hrnet
+
+# Tasks
+task_dictionary:
+   include_semseg: True

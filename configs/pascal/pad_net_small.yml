@@ -1,0 +1,47 @@
+# Setup
+setup: multi_task
+
+# Database
+train_db_name: PASCALContext
+val_db_name: PASCALContext
+trBatch: 8
+valBatch: 8
+nworkers: 4
+
+# Optimizer and scheduler
+epochs: 80
+optimizer: adam
+optimizer_kwargs:
+   lr: 0.0001
+   weight_decay: 0.0001
+scheduler: poly
+
+# Model
+model: pad_net 
+backbone: hrnet_w18
+backbone_kwargs:
+   pretrained: True
+   dilated: False
+   fuse_hrnet: True
+head: hrnet
+
+# Tasks
+task_dictionary:
+   include_semseg: True
+   include_human_parts: True
+   include_sal: True
+auxilary_task_dictionary:
+   include_semseg: True
+   include_human_parts: True
+   include_sal: True
+
+# Loss kwargs
+loss_kwargs:
+   loss_scheme: pad_net
+   loss_weights:
+       semseg: 1.0
+       human_parts: 2.0
+       sal: 5.0
+
+# Eval only final 10 epochs for speed-up
+eval_final_10_epochs_only: True

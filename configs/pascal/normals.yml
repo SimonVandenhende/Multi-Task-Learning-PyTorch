@@ -1,0 +1,34 @@
+# Setup
+setup: single_task
+
+# Database
+train_db_name: PASCALContext
+val_db_name: PASCALContext
+trBatch: 8
+valBatch: 8
+nworkers: 4
+
+# Optimizer and scheduler
+epochs: 60
+optimizer: sgd
+optimizer_kwargs:
+   lr: 0.01
+   weight_decay: 0.0001
+   momentum: 0.9
+   nesterov: False
+scheduler: poly
+
+# Model
+model: baseline
+backbone: hrnet_w18
+backbone_kwargs:
+   pretrained: True
+   dilated: False
+head: hrnet
+
+# Tasks
+task_dictionary:
+   include_normals: True
+
+# Eval only final 10 epochs for speed-up
+eval_final_10_epochs_only: True

@@ -1,0 +1,53 @@
+# Setup
+setup: multi_task
+
+# Database
+train_db_name: NYUD
+val_db_name: NYUD 
+trBatch: 8
+valBatch: 8
+nworkers: 4
+
+# Optimizer and scheduler
+epochs: 100
+optimizer: adam
+optimizer_kwargs:
+   lr: 0.0001
+   weight_decay: 0.0001
+scheduler: poly
+
+# Model
+model: mtan 
+model_kwargs:
+   mtan_kwargs:
+      stages: ['layer1', 'layer2', 'layer3', 'layer4']
+      channels:
+         layer1: 256
+         layer2: 512
+         layer3: 1024
+         layer4: 2048
+      downsample:
+         layer1: True
+         layer2: False
+         layer3: False
+         layer4: False
+backbone: resnet50
+backbone_kwargs:
+   pretrained: True
+   dilated: True
+head: deeplab
+
+# Tasks
+task_dictionary:
+   include_semseg: True
+   include_depth: True
+
+# Loss kwargs
+loss_kwargs:
+   loss_scheme: baseline
+   loss_weights:
+       semseg: 1.0
+       depth: 1.0
+
+# Eval only final 10 epochs for speed-up
+eval_final_10_epochs_only: True
