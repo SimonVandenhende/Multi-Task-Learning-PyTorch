@@ -11,6 +11,8 @@ This repo aims to implement several multi-task learning models and training stra
 
 <strong> Note: </strong> Have a look at the release notes to see what architectures and datasets are currently supported. We are working on a revision of our survey. Missing models or training strategies will be uploaded together with the revised version of the paper (est. time: September 2020). 
 
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/mti-net-multi-scale-task-interaction-networks/semantic-segmentation-on-nyu-depth-v2)](https://paperswithcode.com/sota/semantic-segmentation-on-nyu-depth-v2?p=mti-net-multi-scale-task-interaction-networks)
+
 ## Installation
 The code runs with recent Pytorch version, e.g. 1.4.
 Assuming [Anaconda](https://docs.anaconda.com/anaconda/install/), the most important packages can be installed as:
