@@ -9,9 +9,7 @@ This repo aims to implement several multi-task learning models and training stra
 >
 > [Simon Vandenhende](https://twitter.com/svandenh1), [Stamatios Georgoulis](https://twitter.com/stam_g) and Luc Van Gool.
 
-<strong> Note: </strong> Have a look at the release notes to see what architectures and datasets are currently supported. We are working on a revision of our survey. Missing models or training strategies will be uploaded together with the revised version of the paper (est. time: September 2020). 
-
-[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/mti-net-multi-scale-task-interaction-networks/semantic-segmentation-on-nyu-depth-v2)](https://paperswithcode.com/sota/semantic-segmentation-on-nyu-depth-v2?p=mti-net-multi-scale-task-interaction-networks)
+An up-to-date list of works on multi-task learning can be found [here](https://github.com/SimonVandenhende/Awesome-Multi-Task-Learning).
 
 ## Installation
 The code runs with recent Pytorch version, e.g. 1.4.
@@ -60,43 +58,17 @@ The following datasets and tasks are supported.
 | NYUD    |     Y     |   Y   |    Y    |       Y        |    N     |      N      |
 
 
-## Results
-The following results were obtained by running the included config files.
+The following models are supported.
 
-### HRNet-18 backbone (NYUD)
-
-Models using surface normals estimation and edge detection as auxilary tasks are indicated between brackets.
-
-| Model        | Seg. (mIoU) | Depth (rmse) | MTL Perf. (%)|
-|--------------|-------------|--------------|----------|
-| Single-Task  | 34.5        | 0.610   	    | + 0.00 |
-| Multi-Task   | 33.9        | 0.610        | - 0.75 |
-| PAD-Net      | 35.4	     | 0.614        | + 1.13 |	       |
-| PAD-Net (E+N)| 35.5	     | 0.593	    | + 2.90 |
-| MTI-Net      | 36.2        | 0.563        | + 6.36 |   
-| MTI-Net (E+N)| 37.6        | 0.539        | + 10.32 |
-
-### ResNet-50 backbone (NYUD)
-
-| Model        | Seg. (mIoU) | Depth (rmse) | MTL Perf. (%)|
-|--------------|-------------|--------------|----------|
-| Single-Task  | 40.1 	     | 0.571        | + 0.00 |
-| Multi-Task   | 39.8        | 0.573        | - 0.55 |
-| Cross-stitch | 39.9        | 0.565        | + 0.26 |  
-| NDDR-CNN     | running     |              |        |
-| MTAN         | 40.0 	     | 0.572 	    | - 0.17 |
-
-### HRNet-18 backbone (PASCAL)
-
-| Model	          | Seg. (mIoU) | Parts (mIoU) | Sal (mIoU) | Edge (odsF) | Norm (mean) | MTL Perf. (%) |
-|-----------------|-------------|--------------|------------|-------------|-------------|-----------|
-| Single-Task     | 59.4	| 60.3 	       | 67.0       | 69.2        | 14.6        | + 0.00 |
-| Multi-Task (small) | 56.3	| 60.4 	       | 65.8	    | -           | -           | - 2.26 |
-| Multi-Task (all) | 55.4	| 59.4	       | 65.4       | 71.6	  | 15.0	| - 1.98 | 
-| PAD-Net (small) | 52.7        | 60.5         | 66.0       | -           | -           | - 4.08 |
-| PAD-Net (all) | running | | | | | | 
-| MTI-Net (small) | 63.1 	| 62.1         | 67.2	    | -		  | -           | + 3.20 | 
-| MTI-Net (all) | 62.8 		| 62.2	       | 67.4	    | 73.0        | 14.8        | + 2.72 | 
+| Backbone | HRNet | ResNet |
+|----------|----------|-----------|
+| Single-Task |  Y    |  Y |
+| Multi-Task | Y | Y |
+| Cross-Stitch | | Y |
+| NDDR-CNN | | Y |
+| MTAN | | Y |
+| PAD-Net | Y | |
+| MTI-Net | Y | |
 
 
 ## References
@@ -117,7 +89,7 @@ If you find this repo useful for your research, please consider citing the follo
 @article{vandenhende2020mti,
   title={MTI-Net: Multi-Scale Task Interaction Networks for Multi-Task Learning},
   author={Vandenhende, Simon and Georgoulis, Stamatios and Van Gool, Luc},
-  journal={arXiv preprint arXiv:2001.06902},
+  journal={ECCV2020},
   year={2020}
 }
 

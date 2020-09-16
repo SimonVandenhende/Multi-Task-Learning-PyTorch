@@ -1,0 +1,29 @@
+# Setup
+setup: single_task
+
+# Database
+train_db_name: PASCALContext
+val_db_name: PASCALContext
+trBatch: 12
+valBatch: 12
+nworkers: 4
+
+# Optimizer and scheduler
+epochs: 60
+optimizer: adam
+optimizer_kwargs:
+   lr: 0.0001
+   weight_decay: 0.0001
+scheduler: poly
+
+# Model
+model: baseline
+backbone: resnet18
+backbone_kwargs:
+   pretrained: True
+   dilated: True
+head: deeplab
+
+# Tasks
+task_dictionary:
+   include_human_parts: True

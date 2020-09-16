@@ -71,7 +71,7 @@ def main():
     print(train_transforms)
     print('Val transformations:')
     print(val_transforms)
-   
+    
     # Resume from checkpoint
     if os.path.exists(p['checkpoint']):
         print(colored('Restart from checkpoint {}'.format(p['checkpoint']), 'blue'))
@@ -130,7 +130,7 @@ def main():
 
     # Evaluate best model at the end
     print(colored('Evaluating best model at the end', 'blue'))
-    model.load_state_dict(torch.load(p['best_model']))
+    model.load_state_dict(torch.load(p['checkpoint'])['model'])
     save_model_predictions(p, val_dataloader, model)
     eval_stats = eval_all_results(p)
 

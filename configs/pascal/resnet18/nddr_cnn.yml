@@ -1,0 +1,58 @@
+# Setup
+setup: multi_task
+
+# Database
+train_db_name: PASCALContext
+val_db_name: PASCALContext
+trBatch: 12
+valBatch: 12
+nworkers: 4
+
+# Optimizer and scheduler
+epochs: 20
+optimizer: sgd
+optimizer_kwargs:
+   lr: 0.005
+   weight_decay: 0.0001
+   momentum: 0.9
+   nesterov: False
+scheduler: poly
+
+# Model
+model: nddr_cnn 
+model_kwargs:
+   nddr_cnn_kwargs: 
+      alpha: 0.8
+      beta: 0.05
+      all_stages: ['conv', 'layer1_without_conv', 'layer2', 'layer3', 'layer4']
+      nddr_stages: ['conv', 'layer1_without_conv', 'layer2', 'layer3', 'layer4']
+      channels:
+         conv: 64
+         layer1_without_conv: 64
+         layer2: 128
+         layer3: 256
+         layer4: 512
+backbone: resnet18
+backbone_kwargs:
+   pretrained: True
+   dilated: True
+head: deeplab
+
+# Tasks
+task_dictionary:
+   include_semseg: True
+   include_human_parts: True
+   include_sal: True
+   include_edge: True
+   include_normals: True
+   edge_w: 0.95
+
+# Loss kwargs
+loss_kwargs:
+   loss_scheme: baseline
+   loss_weights:
+       semseg: 1.0
+       human_parts: 2.0
+       sal: 5.0
+       edge: 50.0
+       normals: 10.0
