@@ -79,9 +79,9 @@ This code repository is heavily based on the [ASTMT](https://github.com/facebook
 If you find this repo useful for your research, please consider citing the following works:
 
 ```
-@article{vandenhende2020revisiting,
-  title={Revisiting Multi-Task Learning in the Deep Learning Era},
-  author={Vandenhende, Simon and Georgoulis, Stamatios and Proesmans, Marc and Dai, Dengxin and Van Gool, Luc},
+@article{vandenhende2020multi,
+  title={Multi-Task Learning for Dense Prediction Tasks: A Survey},
+  author={Simon Vandenhende and Stamatios Georgoulis and Wouter Van Gansbeke and Marc Proesmans and Dengxin Dai and Luc Van Gool},
   journal={arXiv preprint arXiv:2004.13379},
   year={2020}
 }
@@ -104,11 +104,7 @@ If you find this repo useful for your research, please consider citing the follo
   title={Supervised evaluation of image segmentation and object proposal techniques},
   author={Pont-Tuset, Jordi and Marques, Ferran},
   journal={IEEE transactions on pattern analysis and machine intelligence},
-  volume={38},
-  number={7},
-  pages={1465--1478},
   year={2015},
-  publisher={IEEE}
 }
 ```
 
