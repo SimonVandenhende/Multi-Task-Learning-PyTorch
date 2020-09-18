@@ -1,7 +1,7 @@
 # Multi-Task Learning
 
 This repo aims to implement several multi-task learning models and training strategies in PyTorch. The code base complements the following works: 
-> [**Revisting Multi-Task Learning in the Deep Learning Era**](https://arxiv.org/abs/2004.13379)
+> [**Multi-Task Learning for Dense Prediction Tasks: A Survey**](https://arxiv.org/abs/2004.13379)
 >
 > [Simon Vandenhende](https://twitter.com/svandenh1), [Stamatios Georgoulis](https://twitter.com/stam_g), Marc Proesmans, Dengxin Dai and Luc Van Gool.
 
