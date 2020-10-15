@@ -79,13 +79,12 @@ This code repository is heavily based on the [ASTMT](https://github.com/facebook
 If you find this repo useful for your research, please consider citing the following works:
 
 ```
-@article{vandenhende2020multi,
-  title={Multi-Task Learning for Dense Prediction Tasks: A Survey},
-  author={Vandenhende, Simon and Georgoulis, Stamatios and Van Gansbeke, Wouter and Proesmans, Marc and Dai, Dengxin and Van Gool, Luc},
+@article{vandenhende2020revisiting,
+  title={Revisiting Multi-Task Learning in the Deep Learning Era},
+  author={Vandenhende, Simon and Georgoulis, Stamatios and Proesmans, Marc and Dai, Dengxin and Van Gool, Luc},
   journal={arXiv preprint arXiv:2004.13379},
   year={2020}
 }
-
 
 @article{vandenhende2020mti,
   title={MTI-Net: Multi-Scale Task Interaction Networks for Multi-Task Learning},
