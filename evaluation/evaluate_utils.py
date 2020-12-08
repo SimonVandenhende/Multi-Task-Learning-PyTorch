@@ -54,7 +54,7 @@ def calculate_multi_task_performance(eval_dict, single_task_dict):
         elif task == 'normals': # mean error lower is better
             mtl_performance -= (mtl['mean'] - stl['mean'])/stl['mean']
 
-        elif task == 'edge': # loss lower is better
+        elif task == 'edge': # odsF higher is better
             mtl_performance += (mtl['odsF'] - stl['odsF'])/stl['odsF']
 
         else:
