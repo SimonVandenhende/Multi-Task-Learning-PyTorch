@@ -84,7 +84,7 @@ def parse_task_dictionary(db_name, task_dictionary):
         tmp = 'depth'
         task_cfg.NAMES.append(tmp)
         task_cfg.NUM_OUTPUT[tmp] = 1
-        task_cfg.FLAGVALS[tmp] = cv2.INTER_LINEAR
+        task_cfg.FLAGVALS[tmp] = cv2.INTER_NEAREST
         task_cfg.INFER_FLAGVALS[tmp] = cv2.INTER_LINEAR
         other_args['depthloss'] = 'l1'
  

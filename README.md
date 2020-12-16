@@ -35,15 +35,15 @@ The provided config files use an HRNet-18 backbone. Download the `hrnet_w18_smal
 
 The datasets will be downloaded automatically to the specified paths when running the code for the first time.
 
-### Train model
-The configuration files to train the model can be found in the `configs/` directory. For example, run the following commands to train a model.
+### Training
+The configuration files to train the model can be found in the `configs/` directory. The model can be trained by running the following command:
 
 ```shell
 python main.py --config_env configs/env.yml --config_exp configs/$DATASET/$MODEL.yml
 ```
 
-### Evaluate model
-The best model is evaluated at the end of training. The multi-task evaluation criterion is based on Equation 10 from our survey paper and requires to pre-train a set of single-tasking networks first. It is possible to only validate the model during the last 10 epochs to speed-up training by adding the following line to your config file:
+### Evaluation
+We evaluate the best model at the end of training. The evaluation criterion is based on Equation 10 from our survey paper and requires to pre-train a set of single-tasking networks beforehand. To speed-up training, it is possible to evaluate the model only during the final 10 epochs by adding the following line to your config file:
 
 ```python
 eval_final_10_epochs_only: True
@@ -55,7 +55,7 @@ The following datasets and tasks are supported.
 | Dataset | Sem. Seg. | Depth | Normals | Edge | Saliency | Human Parts |
 |---------|-----------|-------|---------|----------------|----------|-------------|
 | PASCAL  |     Y     |   N   |    Y    |       Y        |    Y     |      Y      |
-| NYUD    |     Y     |   Y   |    Y    |       Y        |    N     |      N      |
+| NYUD    |     Y     |   Y   |    Aux  |       Aux       |    N     |      N      |
 
 
 The following models are supported.
@@ -108,8 +108,12 @@ If you find this repo useful for your research, please consider citing the follo
 }
 ```
 
-## FAQ
-Have a look at the release notes for additional remarks.
+## Updates
+The following updates were made:
+
+> The initial code used the NYUDv2 dataloader from ASTMT. This implementation was different from the one we used to run our experiments in the survey. Therefore, we have re-written the NYUDv2 dataloader to be consistent with our survey results. To avoid any issues, it is best to remove your old version of the NYUDv2 dataset. The python script will then automatically download the correct version when using the NYUDv2 dataset.
+> The depth task is evaluated in a pixel-wise fashion to be consistent with the survey. This is different from ASTMT, which averages the results across the images. 
+
 
 ## License
 This software is released under a creative commons license which allows for personal and research use only. For a commercial license please contact the authors. You can view a license summary [here](http://creativecommons.org/licenses/by-nc/4.0/).

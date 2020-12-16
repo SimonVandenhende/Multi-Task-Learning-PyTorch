@@ -32,7 +32,6 @@ class ScaleNRotate(object):
         self.flagvals = flagvals
 
     def __call__(self, sample):
-
         if type(self.rots) == tuple:
             # Continuous range of scales and rotations
             rot = (self.rots[1] - self.rots[0]) * random.random() - \
@@ -74,6 +73,9 @@ class ScaleNRotate(object):
                 tmp[:, :, 1] = np.cos(in_plane + rot_rad) * nrm_0
 
             tmp = cv2.warpAffine(tmp, M, (w, h), flags=flagval)
+
+            if elem == 'depth':
+                tmp = tmp / sc
 
             sample[elem] = tmp
 

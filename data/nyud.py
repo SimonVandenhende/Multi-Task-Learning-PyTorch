@@ -23,10 +23,10 @@ from utils.mypath import MyPath
 class NYUD_MT(data.Dataset):
     """
     NYUD dataset for multi-task learning.
-    Includes edge detection, semantic segmentation, surface normals, and depth prediction
+    Includes semantic segmentation and depth prediction.
     """
 
-    URL = 'https://data.vision.ee.ethz.ch/kmaninis/share/MTL/NYUD_MT.tgz'
+    URL = '/TO/BE/DEFINED/'
     FILE = 'NYUD_MT.tgz'
 
     def __init__(self,
@@ -36,7 +36,7 @@ class NYUD_MT(data.Dataset):
                  transform=None,
                  retname=True,
                  overfit=False,
-                 do_edge=True,
+                 do_edge=False,
                  do_semseg=False,
                  do_normals=False,
                  do_depth=False,
@@ -61,7 +61,7 @@ class NYUD_MT(data.Dataset):
         self.im_ids = []
         self.images = []
         _image_dir = os.path.join(root, 'images')
-
+        
         # Edge Detection
         self.do_edge = do_edge
         self.edges = []
@@ -99,20 +99,22 @@ class NYUD_MT(data.Dataset):
                 self.im_ids.append(line.rstrip('\n'))
 
                 # Edges
-                _edge = os.path.join(self.root, _edge_gt_dir, line + '.png')
+                _edge = os.path.join(self.root, _edge_gt_dir, line + '.npy')
                 assert os.path.isfile(_edge)
                 self.edges.append(_edge)
 
                 # Semantic Segmentation
-                _semseg = os.path.join(self.root, _semseg_gt_dir, line + '.mat')
+                _semseg = os.path.join(self.root, _semseg_gt_dir, line + '.png')
                 assert os.path.isfile(_semseg)
                 self.semsegs.append(_semseg)
 
-                _normal = os.path.join(self.root, _normal_gt_dir, line + '.jpg')
+                # Surface Normals
+                _normal = os.path.join(self.root, _normal_gt_dir, line + '.npy')
                 assert os.path.isfile(_normal)
                 self.normals.append(_normal)
 
-                _depth = os.path.join(self.root, _depth_gt_dir, line + '.mat')
+                # Depth Prediction
+                _depth = os.path.join(self.root, _depth_gt_dir, line + '.npy')
                 assert os.path.isfile(_depth)
                 self.depths.append(_depth)
 
@@ -120,10 +122,10 @@ class NYUD_MT(data.Dataset):
             assert (len(self.images) == len(self.edges))
         if self.do_semseg:
             assert (len(self.images) == len(self.semsegs))
-        if self.do_normals:
-            assert (len(self.images) == len(self.normals))
         if self.do_depth:
             assert (len(self.images) == len(self.depths))
+        if self.do_normals:
+            assert (len(self.images) == len(self.normals))
 
         # Uncomment to overfit to one image
         if overfit:
@@ -183,23 +185,23 @@ class NYUD_MT(data.Dataset):
         return _img
 
     def _load_edge(self, index):
-        _edge = np.array(Image.open(self.edges[index])).astype(np.float32) / 255.
+        _edge = np.load(self.edges[index]).astype(np.float32)
         return _edge
 
     def _load_semseg(self, index):
         # Note: We ignore the background class as other related works.
-        _semseg = np.array(sio.loadmat(self.semsegs[index])['segmentation']).astype(np.float32) - 1
-        _semseg[_semseg == -1] = 255
+        _semseg = np.array(Image.open(self.semsegs[index])).astype(np.float32)
+        _semseg[_semseg == 0] = 256
+        _semseg = _semseg - 1
         return _semseg
 
-    def _load_normals(self, index):
-        _tmp = np.array(Image.open(self.normals[index])).astype(np.float32)
-        _normals = 2.0 * _tmp / 255.0 - 1.0
-        return _normals
-
     def _load_depth(self, index):
-        _depth = np.array(sio.loadmat(self.depths[index])['depth']).astype(np.float32)
+        _depth = np.load(self.depths[index])
         return _depth
+
+    def _load_normals(self, index):
+        _normals = np.load(self.normals[index])
+        return _normals
 
     def _download(self):
         _fpath = os.path.join(MyPath.db_root_dir(), self.FILE)

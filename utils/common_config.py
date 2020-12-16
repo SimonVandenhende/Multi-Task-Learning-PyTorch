@@ -155,13 +155,26 @@ def get_transformations(p):
     from data import custom_transforms as tr
 
     # Training transformations
-    
-    # Horizontal flips with probability of 0.5
-    transforms_tr = [tr.RandomHorizontalFlip()]
-    
-    # Rotations and scaling
-    transforms_tr.extend([tr.ScaleNRotate(rots=(-20, 20), scales=(.75, 1.25),
-                                          flagvals={x: p.ALL_TASKS.FLAGVALS[x] for x in p.ALL_TASKS.FLAGVALS})])
+    if p['train_db_name'] == 'NYUD':
+        # Horizontal flips with probability of 0.5
+        transforms_tr = [tr.RandomHorizontalFlip()]
+        
+        # Rotations and scaling
+        transforms_tr.extend([tr.ScaleNRotate(rots=[0], scales=[1.0, 1.2, 1.5],
+                                              flagvals={x: p.ALL_TASKS.FLAGVALS[x] for x in p.ALL_TASKS.FLAGVALS})])
+
+    elif p['train_db_name'] == 'PASCALContext':
+        # Horizontal flips with probability of 0.5
+        transforms_tr = [tr.RandomHorizontalFlip()]
+        
+        # Rotations and scaling
+        transforms_tr.extend([tr.ScaleNRotate(rots=(-20, 20), scales=(.75, 1.25),
+                                              flagvals={x: p.ALL_TASKS.FLAGVALS[x] for x in p.ALL_TASKS.FLAGVALS})])
+
+    else:
+        raise ValueError('Invalid train db name'.format(p['train_db_name']))
+
+
     # Fixed Resize to input resolution
     transforms_tr.extend([tr.FixedResize(resolutions={x: tuple(p.TRAIN.SCALE) for x in p.ALL_TASKS.FLAGVALS},
                                          flagvals={x: p.ALL_TASKS.FLAGVALS[x] for x in p.ALL_TASKS.FLAGVALS})])
@@ -237,10 +250,10 @@ def get_val_dataset(p, transforms):
     elif db_name == 'NYUD':
         from data.nyud import NYUD_MT
         database = NYUD_MT(split='val', transform=transforms, do_edge='edge' in p.TASKS.NAMES, 
-                                    do_semseg='semseg' in p.TASKS.NAMES, 
-                                    do_normals='normals' in p.TASKS.NAMES, 
-                                    do_depth='depth' in p.TASKS.NAMES, overfit=p['overfit'])
-    
+                                do_semseg='semseg' in p.TASKS.NAMES, 
+                                do_normals='normals' in p.TASKS.NAMES, 
+                                do_depth='depth' in p.TASKS.NAMES, overfit=p['overfit'])
+
     else:
         raise NotImplemented("test_db_name: Choose among PASCALContext and NYUD")
 

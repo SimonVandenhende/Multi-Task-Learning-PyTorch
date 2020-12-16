@@ -18,8 +18,10 @@ import scipy.io as sio
 
 def eval_depth(loader, folder):
 
-    rmses = []
-    log_rmses = []
+    total_rmses = 0.0
+    total_log_rmses = 0.0
+    n_valid = 0.0
+
     for i, sample in enumerate(loader):
 
         if i % 500 == 0:
@@ -35,67 +37,58 @@ def eval_depth(loader, folder):
             pred = cv2.resize(pred, label.shape[::-1], interpolation=cv2.INTER_LINEAR)
 
         valid_mask = (label != 0)
-        n_valid = np.sum(valid_mask)
+        n_valid += np.sum(valid_mask)
 
         label[label == 0] = 1e-9 # Avoid overflow/underflow
         pred[pred <= 0] = 1e-9
 
-        log_rmse_tmp = (np.log(label) - np.log(pred)) ** 2
-        log_rmse_tmp = np.sqrt(np.sum(log_rmse_tmp) / n_valid)
-        log_rmses.extend([log_rmse_tmp])
+        log_rmse_tmp = (np.log(label[valid_mask]) - np.log(pred[valid_mask])) ** 2
+        total_log_rmses += np.sum(log_rmse_tmp)
 
-        rmse_tmp = (label - pred) ** 2
-        rmse_tmp = np.sqrt(np.sum(rmse_tmp) / n_valid)
-        rmses.extend([rmse_tmp])
-
-    rmses = np.array(rmses)
-    log_rmses = np.array(log_rmses)
+        rmse_tmp = (label[valid_mask] - pred[valid_mask]) ** 2
+        total_rmses += np.sum(rmse_tmp)
 
     eval_result = dict()
-    eval_result['rmse'] = np.mean(rmses)
-    eval_result['log_rmse'] = np.median(log_rmses)
+    eval_result['rmse'] = np.sqrt(total_rmses / n_valid)
+    eval_result['log_rmse'] = np.sqrt(total_log_rmses / n_valid)
 
     return eval_result
 
 
 class DepthMeter(object):
     def __init__(self):
-        self.rmses = []
-        self.log_rmses = []
+        self.total_rmses = 0.0
+        self.total_log_rmses = 0.0
+        self.n_valid = 0.0
 
     @torch.no_grad()
     def update(self, pred, gt):
         pred, gt = pred.squeeze(), gt.squeeze()
         
         # Determine valid mask
-        mask = (gt != 255).float()
-        n_valid = mask.sum(dim=(1,2)) # Valid pixels per image
+        mask = (gt != 255).bool()
+        self.n_valid += mask.float().sum().item() # Valid pixels per image
         
         # Only positive depth values are possible
         pred = torch.clamp(pred, min=1e-9)
 
-        # Per pixel rmse and log-rmse. 
+        # Per pixel rmse and log-rmse.
         log_rmse_tmp = torch.pow(torch.log(gt) - torch.log(pred), 2)
-        log_rmse_tmp = torch.mul(mask, log_rmse_tmp) # Mask out invalid pixels
-        log_rmses = torch.sqrt(torch.div(torch.sum(log_rmse_tmp, dim=(1,2)), n_valid)) # Log-RMSE per image
-        self.log_rmses.extend(log_rmses.tolist())
+        log_rmse_tmp = torch.masked_select(log_rmse_tmp, mask)
+        self.total_log_rmses += log_rmse_tmp.sum().item()
 
         rmse_tmp = torch.pow(gt - pred, 2)
-        rmse_tmp = torch.mul(mask, rmse_tmp) # Maks out invalid pixels
-        rmse_tmp = torch.sqrt(torch.div(torch.sum(rmse_tmp, dim=(1,2)), n_valid)) # RMSE per image
-        self.rmses.extend(rmse_tmp.tolist()) 
+        rmse_tmp = torch.masked_select(rmse_tmp, mask)
+        self.total_rmses += rmse_tmp.sum().item()
 
     def reset(self):
         self.rmses = []
         self.log_rmses = []
         
     def get_score(self, verbose=True):
-        rmses = np.array(self.rmses)
-        log_rmses = np.array(self.log_rmses)
-
         eval_result = dict()
-        eval_result['rmse'] = np.mean(rmses)
-        eval_result['log_rmse'] = np.median(log_rmses)
+        eval_result['rmse'] = np.sqrt(self.total_rmses / self.n_valid)
+        eval_result['log_rmse'] = np.sqrt(self.total_log_rmses / self.n_valid)
 
         if verbose:
             print('Results for depth prediction')
