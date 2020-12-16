@@ -109,10 +109,11 @@ If you find this repo useful for your research, please consider citing the follo
 ```
 
 ## Updates
-The following updates were made:
+For more information see issue #1.
 
-> The initial code used the NYUDv2 dataloader from ASTMT. This implementation was different from the one we used to run our experiments in the survey. Therefore, we have re-written the NYUDv2 dataloader to be consistent with our survey results. To avoid any issues, it is best to remove your old version of the NYUDv2 dataset. The python script will then automatically download the correct version when using the NYUDv2 dataset.
-> The depth task is evaluated in a pixel-wise fashion to be consistent with the survey. This is different from ASTMT, which averages the results across the images. 
+The initial code used the NYUDv2 dataloader from ASTMT. This implementation was different from the one we used to run our experiments in the survey. Therefore, we have re-written the NYUDv2 dataloader to be consistent with our survey results. To avoid any issues, it is best to remove your old version of the NYUDv2 dataset. The python script will then automatically download the correct version when using the NYUDv2 dataset.
+
+The depth task is evaluated in a pixel-wise fashion to be consistent with the survey. This is different from ASTMT, which averages the results across the images. 
 
 
 ## License
