@@ -25,6 +25,10 @@ class NYUD_MT(data.Dataset):
     """
     NYUD dataset for multi-task learning.
     Includes semantic segmentation and depth prediction.
+
+    Data can also be found at:
+    https://drive.google.com/file/d/14EAEMXmd3zs2hIMY63UhHPSFPDAkiTzw/view?usp=sharing
+
     """
 
     GOOGLE_DRIVE_ID = '14EAEMXmd3zs2hIMY63UhHPSFPDAkiTzw'
