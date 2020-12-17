@@ -18,7 +18,8 @@ import scipy.io as sio
 from six.moves import urllib
 
 from utils.mypath import MyPath
-
+from utils.utils import mkdir_if_missing
+from data.google_drive import download_file_from_google_drive
 
 class NYUD_MT(data.Dataset):
     """
@@ -26,7 +27,7 @@ class NYUD_MT(data.Dataset):
     Includes semantic segmentation and depth prediction.
     """
 
-    URL = '/TO/BE/DEFINED/'
+    GOOGLE_DRIVE_ID = '14EAEMXmd3zs2hIMY63UhHPSFPDAkiTzw'
     FILE = 'NYUD_MT.tgz'
 
     def __init__(self,
@@ -210,15 +211,9 @@ class NYUD_MT(data.Dataset):
             print('Files already downloaded')
             return
         else:
-            print('Downloading ' + self.URL + ' to ' + _fpath)
-
-            def _progress(count, block_size, total_size):
-                sys.stdout.write('\r>> %s %.1f%%' %
-                                 (_fpath, float(count * block_size) /
-                                  float(total_size) * 100.0))
-                sys.stdout.flush()
-
-            urllib.request.urlretrieve(self.URL, _fpath, _progress)
+            print('Downloading from google drive')
+            mkdir_if_missing(os.path.dirname(_fpath))
+            download_file_from_google_drive(self.GOOGLE_DRIVE_ID, _fpath)
 
         # extract file
         cwd = os.getcwd()
