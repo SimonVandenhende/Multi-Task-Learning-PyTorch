@@ -15,7 +15,13 @@ matlab -nojvm -nodisplay -r "install"
 
 3) Set the seism root dir in `./utils/mypath.py`.
 
-4) Set the `db_root_dir` in `$SEISM_ROOT/src/gt_wrappers/db_root_dir.m`
+4) Set the `db_root_dir` in `$SEISM_ROOT/src/gt_wrappers/db_root_dir.m`. Mine looks as follows, since it only supports PASCALContext.
+
+```matlab
+function db_root_dir = db_root_dir( database )
+db_root_dir='/path/to/PASCAL_MT/pascal-context/';
+end
+```
 
 5) Copy the `./evaluation/seism/read_one_png.m` file to `$SEISM_ROOT/src/io/`.
 
