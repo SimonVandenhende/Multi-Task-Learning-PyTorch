@@ -1,7 +1,7 @@
 # Multi-Task Learning
 
 This repo aims to implement several multi-task learning models and training strategies in PyTorch. The code base complements the following works: 
-> [**Multi-Task Learning for Dense Prediction Tasks: A Survey**](https://arxiv.org/abs/2004.13379)
+> [**Multi-Task Learning for Dense Prediction Tasks: A Survey**](https://ieeexplore.ieee.org/abstract/document/9336293)
 >
 > [Simon Vandenhende](https://twitter.com/svandenh1), [Stamatios Georgoulis](https://twitter.com/stam_g), Wouter Van Gansbeke, Marc Proesmans, Dengxin Dai and Luc Van Gool.
 
@@ -79,12 +79,15 @@ This code repository is heavily based on the [ASTMT](https://github.com/facebook
 If you find this repo useful for your research, please consider citing the following works:
 
 ```
-@article{vandenhende2020revisiting,
-  title={Revisiting Multi-Task Learning in the Deep Learning Era},
-  author={Vandenhende, Simon and Georgoulis, Stamatios and Proesmans, Marc and Dai, Dengxin and Van Gool, Luc},
-  journal={arXiv preprint arXiv:2004.13379},
-  year={2020}
-}
+@article{
+  author={S. {Vandenhende} and S. {Georgoulis} and W. {Van Gansbeke} and M. {Proesmans} and D. {Dai} and L. {Van Gool}},
+  journal={IEEE Transactions on Pattern Analysis and Machine Intelligence}, 
+  title={Multi-Task Learning for Dense Prediction Tasks: A Survey}, 
+  year={2021},
+  volume={},
+  number={},
+  pages={1-1},
+  doi={10.1109/TPAMI.2021.3054719}}
 
 @article{vandenhende2020mti,
   title={MTI-Net: Multi-Scale Task Interaction Networks for Multi-Task Learning},
