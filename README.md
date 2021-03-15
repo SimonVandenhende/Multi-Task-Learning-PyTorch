@@ -80,7 +80,7 @@ If you find this repo useful for your research, please consider citing the follo
 
 ```
 @article{
-  author={S. {Vandenhende} and S. {Georgoulis} and W. {Van Gansbeke} and M. {Proesmans} and D. {Dai} and L. {Van Gool}},
+  author={S. Vandenhende and S. Georgoulis and W. Van Gansbeke and M. Proesmans and D. Dai and L. Van Gool},
   journal={IEEE Transactions on Pattern Analysis and Machine Intelligence}, 
   title={Multi-Task Learning for Dense Prediction Tasks: A Survey}, 
   year={2021},
