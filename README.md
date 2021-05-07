@@ -11,6 +11,9 @@ This repo aims to implement several multi-task learning models and training stra
 
 An up-to-date list of works on multi-task learning can be found [here](https://github.com/SimonVandenhende/Awesome-Multi-Task-Learning).
 
+
+:loudspeaker: :loudspeaker: :loudspeaker: We are organizing a **workshop** on multi-task learning at ICCV 2021. More information can be found on our [website](https://sites.google.com/view/deepmtlworkshop/home).
+
 ## Installation
 The code runs with recent Pytorch version, e.g. 1.4.
 Assuming [Anaconda](https://docs.anaconda.com/anaconda/install/), the most important packages can be installed as:
