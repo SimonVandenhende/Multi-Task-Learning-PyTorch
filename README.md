@@ -12,9 +12,10 @@ This repo aims to implement several multi-task learning models and training stra
 An up-to-date list of works on multi-task learning can be found [here](https://github.com/SimonVandenhende/Awesome-Multi-Task-Learning).
 
 ## Workshop
-:loudspeaker: :loudspeaker: :loudspeaker: We are organizing a **workshop** on multi-task learning at ICCV 2021. More information can be found on our [website](https://sites.google.com/view/deepmtlworkshop/home).
-- April 10: We have confirmed eight excellent speakers, including Rich Caruana (Microsoft), Chelsea Finn (Stanford), Judy Hoffman (Georgia Tech), Iasonas Kokkinos (University College London), Andrew Rabinovich (Headroom inc.), Raquel Urtasun (University of Toronto), Luc Van Gool (Ku Leuven & ETH Zurich) and Amir Zamir (EPFL).
-- June 2: Submission [website](https://cmt3.research.microsoft.com/DeepMTL2021/) is now live.   
+
+:loudspeaker: :loudspeaker: :loudspeaker: We organized a **workshop** on multi-task learning at ICCV 2021 ([Link](https://sites.google.com/view/deepmtlworkshop/home)).
+
+- Jan 13: The recordings of our invited talks are now available on [Youtube](https://youtube.com/playlist?list=PLJwr5SeuN6XMXbWxnzwD1e7n-aOOJpWJn).
 
 ## Installation
 The code runs with recent Pytorch version, e.g. 1.4.
